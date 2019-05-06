@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Task from "./Task.js"
+import "./Adder.css"
 export default class Adder extends Component {
     constructor(props) {
         super(props);
@@ -10,10 +11,11 @@ export default class Adder extends Component {
     }
     render() {
         return (
-            <div>
+            
+            <div class="d-flex justify-content-center">
                 
-                <input type="text" onChange={this.taskchange} value={this.state.task}/>
-                <input type="button" onClick={this.addTask}/>
+                <input type="text" class="col-sm-6"id="inputField" onChange={this.taskchange} value={this.state.task}/>
+                <input type="button" value="Submit Task" class="adder"onClick={this.addTask}></input>
                 {this.state.arr.map((arr,i)=><p key={"task"+ i}> {arr}</p>)}
             </div>
 

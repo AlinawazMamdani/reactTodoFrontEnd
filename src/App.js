@@ -50,7 +50,7 @@ class App extends Component {
     console.log()
       return (
         <div>
-          <Navbar arra={["cheese", "milk", "cow"]} />
+          <Navbar arra={["Completed Tasks", "Tasks"]} />
           <Adder getTasks={this.getTasks}/>
           <TaskList tasks={this.state.tasks} deleteTasks={this.deleteTasks} getTasks={this.getTasks} />
         </div>
