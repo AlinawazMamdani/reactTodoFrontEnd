@@ -18,7 +18,7 @@ export default class TaskList extends Component {
         //{this.state.task.map((task, i) => <Task Key={task + i} taskText={task.todo}/>)}
         return (
             <div id="">
-                {this.props.tasks.map((tasks, i) => <Task task={tasks.todo} taskId={tasks.idTodo} key={i} deleteTasks={this.props.deleteTasks} getTasks={this.props.getTasks}/>)}
+                {this.props.tasks.map((tasks, i) => <Task task={tasks.todo} taskId={tasks.idTodo} key={i} completed={tasks.completed} deleteTasks={this.props.deleteTasks} getTasks={this.props.getTasks} updateTask={this.props.updateTask} />)}
                 {/* {this.props.tasks.map((tasks, i) =>console.log(tasks.idTodo))}
                 {/* {this.state.task.map((task,i)=> <Task tasksExist={task} i={i} /> )} */}
 

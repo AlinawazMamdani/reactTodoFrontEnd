@@ -14,7 +14,7 @@ export default class Task extends Component {
                  <button type="button" onClick={()=>{this.deleteAndGetTasks(this.props.taskId)}}>
                       delete
                   </button>
-                  <button type="button" onClick={()=>{this.updateTask(this.props.task,this.props.taskId)}}>
+                  <button type="button" onClick={()=>{this.props.updateTask(this.props.task,this.props.taskId,this.props.completed)}}>
                       update
                   </button>
                 {/* <button type="button" onClick={()=> {this.props.deleteTasks(this.props.taskId) } }>
@@ -26,24 +26,7 @@ export default class Task extends Component {
     deleteAndGetTasks=(tasId)=>{
         this.props.deleteTasks(this.props.taskId)
     }
-    updateTask=(todo,taskId)=>{
-    let URL = "http://localhost:8080/api/v1/todos///"+ this.props.taskId
-    let request = new XMLHttpRequest();
-    request.open("PUT", URL);
-    request.setRequestHeader("Content-Type","application/json")
-    request.responseType = "json";
-    let stringID= ''+taskId;
 
-    let updateBody={
-        idTodo:taskId,todo:todo, completed:true
-    }
-    request.onload=()=>{
-        this.props.getTasks();
-    }
-    console.log(JSON.stringify(updateBody))
-    request.send(JSON.stringify(updateBody));
-
-    }
 
 
 }

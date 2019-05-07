@@ -8,13 +8,34 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: []
+      tasks: [],
+      userId:13,
+      completed:false
+
     }
+    
   }
+  addTask=(taskToAdd)=>{
+    URL = "http://localhost:8080/api/v1/todos"
+    let request2 = new XMLHttpRequest();
+    request2.open('POST', URL);
+    request2.responseType = 'json';
+    request2.setRequestHeader("Content-Type", "application/json")
+    request2.setRequestHeader("Accept", "application/json")
+    request2.onload=()=>{
+        console.log(request2.response)
+        this.getTasks()
+    }
+    
+    let bod = {todo: taskToAdd,userID: 13 }
+    request2.send(JSON.stringify(bod))
+    }
 
-
-  getTasks = () => {
-    let URL = "http://localhost:8080/api/v1/todos/"
+  getTasks = (completed) => {
+    if (completed!=null){
+      this.state.completed=completed;
+    }
+    let URL = "http://localhost:8080/api/v1/todos/"+this.state.userId +'/'+this.state.completed;
     let request = new XMLHttpRequest();
     request.open("GET", URL);
     request.responseType = "json";
@@ -40,6 +61,27 @@ class App extends Component {
       }
       request.send();
 }
+updateTask=(todo,taskId,iscompleted)=>{
+  let URL = "http://localhost:8080/api/v1/todos///"+ taskId
+  let request = new XMLHttpRequest();
+  request.open("PUT", URL);
+  request.setRequestHeader("Content-Type","application/json")
+  request.responseType = "json";
+  if(iscompleted==true){
+    iscompleted=false;
+  }else{
+    iscompleted=true;
+  };
+  let updateBody={
+      idTodo:taskId,todo:todo, completed:iscompleted,userID:13
+  }
+  request.onload=()=>{
+      this.getTasks();
+  }
+  console.log(JSON.stringify(updateBody))
+  request.send(JSON.stringify(updateBody));
+
+  }
 
   componentDidMount() {
     this.getTasks()
@@ -50,9 +92,10 @@ class App extends Component {
     console.log()
       return (
         <div>
-          <Navbar arra={["cheese", "milk", "cow"]} />
-          <Adder getTasks={this.getTasks}/>
-          <TaskList tasks={this.state.tasks} deleteTasks={this.deleteTasks} getTasks={this.getTasks} />
+          {/* <Navbar arra={["Completed Tasks", "Tasks"]} getTasks={this.getTasks}/> */}
+          <Navbar getTasks={this.getTasks}/>
+          <Adder getTasks={this.getTasks} addTask={this.addTask}/>
+          <TaskList tasks={this.state.tasks} deleteTasks={this.deleteTasks} getTasks={this.getTasks} updateTask={this.updateTask} />
         </div>
   // {this.state.tasks.map((tasks,i) => <p key ={"task" + i}> {tasks.todo} </p>)}
       );

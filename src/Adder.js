@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Task from "./Task.js"
+import "./Adder.css"
 export default class Adder extends Component {
     constructor(props) {
         super(props);
@@ -10,10 +11,11 @@ export default class Adder extends Component {
     }
     render() {
         return (
-            <div>
+            
+            <div class="d-flex justify-content-center">
                 
-                <input type="text" onChange={this.taskchange} value={this.state.task}/>
-                <input type="button" onClick={this.addTask}/>
+                <input type="text" class="col-sm-6"id="inputField" onChange={this.taskchange} value={this.state.task}/>
+                <input type="button" value="Submit Task" class="adder"onClick={()=>this.props.addTask(this.state.task)}></input>
                 {this.state.arr.map((arr,i)=><p key={"task"+ i}> {arr}</p>)}
             </div>
 
@@ -56,21 +58,7 @@ export default class Adder extends Component {
     // // console.log(bod)
     // request2.send(JSON.stringify(bod))
     // }
-    addTask=()=>{
-    URL = "http://localhost:8080/api/v1/todos"
-    let request2 = new XMLHttpRequest();
-    request2.open('POST', URL);
-    request2.responseType = 'json';
-    request2.setRequestHeader("Content-Type", "application/json")
-    request2.setRequestHeader("Accept", "application/json")
-    request2.onload=()=>{
-        console.log(request2.response)
-        this.props.getTasks()
-    }
-    
-    let bod = {todo: this.state.task,userID: 13 }
-    request2.send(JSON.stringify(bod))
-    }
+
 
 
 
