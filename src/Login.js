@@ -4,31 +4,51 @@ export default class Login extends Component {
     super(props);
     this.state = {
         username:"",
-        password:""
+        password:"",
+        userID:0
     }
 }
 
-    getUsers = (username,password) => {
+    getUsers = (username,password,reg) => {
         let URL = "http://localhost:8085/api/v1/users///"+this.state.username;
         let request = new XMLHttpRequest();
         request.open("GET", URL);
         request.responseType = "json";
         request.onload = () => {
           console.log(request.response);
-          if (request.response===1){
-            console.log("hello");
+  
+          if(reg=="reg" && request.response===1){
+            window.alert("username taken")
+          }else if(reg==="reg"){
+            this.register()
+          }
+          else if (request.response===1){
             this.loginAttempt(username,password);
           }
         }
         request.send();
       }
-      loginAttempt = () => {
-        let URL = "http://localhost:8085/api/v1/users///"+this.state.username+"/"+this.state.password;
+      register=()=>{
+        let URL="http://localhost:8085/api/v1/users/";
+        let request2 = new XMLHttpRequest();
+        request2.open('POST', URL);
+        request2.responseType = 'json';
+        request2.setRequestHeader("Content-Type", "application/json")
+        request2.setRequestHeader("Accept", "application/json")
+        request2.onload=()=>{
+          this.loginAttempt(this.state.username,this.state.password);
+        }
+        let bod = {username: this.state.username,password: this.state.password }
+        request2.send(JSON.stringify(bod))
+        }
+      
+      loginAttempt = (username,password) => {
+        let URL = "http://localhost:8085/api/v1/users///"+username+"/"+password ;
         let request = new XMLHttpRequest();
         request.open("GET", URL);
         request.responseType = "json";
         request.onload = () => {
-          console.log(request.response);
+          console.log(request.response)
           this.props.updateUserID(request.response);
           this.setState({
             tasks: request.response
@@ -45,6 +65,7 @@ export default class Login extends Component {
                 <input type="text" placeholder="username"onChange={this.userchange}></input>
                 <input type="password" placeholder="password"onChange={this.passchange}></input>
                 <button onClick={()=>this.getUsers(this.state.username,this.state.password)}>Login</button>
+                <button onClick={()=>this.getUsers(this.state.username,this.state.password,"reg")}>Register</button>
             </div>
 
         );

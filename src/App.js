@@ -32,7 +32,6 @@ class App extends Component {
     request2.setRequestHeader("Content-Type", "application/json")
     request2.setRequestHeader("Accept", "application/json")
     request2.onload=()=>{
-        console.log(request2.response)
         this.getTasks()
     }
     
@@ -49,7 +48,6 @@ class App extends Component {
     request.open("GET", URL);
     request.responseType = "json";
     request.onload = () => {
-      console.log(request.response)
       
       this.setState({
         tasks: request.response
@@ -87,7 +85,6 @@ updateTask=(todo,taskId,iscompleted)=>{
   request.onload=()=>{
       this.getTasks();
   }
-  console.log(JSON.stringify(updateBody))
   request.send(JSON.stringify(updateBody));
 
   }
