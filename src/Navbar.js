@@ -17,7 +17,7 @@ export default class Navbar extends Component{
                     {/* {this.props.arra.map((page) => <a href="#">  </a>)} */}
                      <button class="btn btn-dark" onClick={()=>{this.props.getTasks(true)}}> CompletedTasks </button>
                      <button class="btn btn-dark" onClick={()=>{this.props.getTasks(false)}}> Tasks </button>
-                     <button class="btn btn-dark "  > Login/Register </button>
+                     <button class="btn btn-dark "  > </button>
                     </div>
                 </div>
             </nav>

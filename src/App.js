@@ -4,19 +4,28 @@ import './main.css';
 import Adder from './Adder.js'
 import Navbar from './Navbar.js'
 import TaskList from './TaskList';
+import Login from './Login.js';
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: [],
-      userId:13,
+      userId:0,
       completed:false
 
     }
     
   }
+  updateUserID=(passedUserID)=>{
+    this.setState({
+      userId:passedUserID
+    });
+
+
+  }
   addTask=(taskToAdd)=>{
-    URL = "http://localhost:8080/api/v1/todos"
+    URL = "http://localhost:8085/api/v1/todos"
     let request2 = new XMLHttpRequest();
     request2.open('POST', URL);
     request2.responseType = 'json';
@@ -27,7 +36,7 @@ class App extends Component {
         this.getTasks()
     }
     
-    let bod = {todo: taskToAdd,userID: 13 }
+    let bod = {todo: taskToAdd,userID: this.state.userId }
     request2.send(JSON.stringify(bod))
     }
 
@@ -35,7 +44,7 @@ class App extends Component {
     if (completed!=null){
       this.state.completed=completed;
     }
-    let URL = "http://localhost:8080/api/v1/todos/"+this.state.userId +'/'+this.state.completed;
+    let URL = "http://localhost:8085/api/v1/todos/"+this.state.userId +'/'+this.state.completed;
     let request = new XMLHttpRequest();
     request.open("GET", URL);
     request.responseType = "json";
@@ -49,7 +58,7 @@ class App extends Component {
     request.send();
   }
   deleteTasks=(id)=> {
-    let requestURL =("http://localhost:8080/api/v1/todos/"+ id);
+    let requestURL =("http://localhost:8085/api/v1/todos/"+ id);
     let request = new XMLHttpRequest();
     request.open('DELETE', requestURL);
     request.responseType = 'json'
@@ -62,7 +71,7 @@ class App extends Component {
       request.send();
 }
 updateTask=(todo,taskId,iscompleted)=>{
-  let URL = "http://localhost:8080/api/v1/todos///"+ taskId
+  let URL = "http://localhost:8085/api/v1/todos///"+ taskId
   let request = new XMLHttpRequest();
   request.open("PUT", URL);
   request.setRequestHeader("Content-Type","application/json")
@@ -73,7 +82,7 @@ updateTask=(todo,taskId,iscompleted)=>{
     iscompleted=true;
   };
   let updateBody={
-      idTodo:taskId,todo:todo, completed:iscompleted,userID:13
+      idTodo:taskId,todo:todo, completed:iscompleted,userID:this.state.userId
   }
   request.onload=()=>{
       this.getTasks();
@@ -89,7 +98,7 @@ updateTask=(todo,taskId,iscompleted)=>{
 
   render() {
     //{let todo = this.state.tasks.map((d,i)=>)}
-    console.log()
+    if (this.state.userId!=0){
       return (
         <div>
           {/* <Navbar arra={["Completed Tasks", "Tasks"]} getTasks={this.getTasks}/> */}
@@ -99,6 +108,17 @@ updateTask=(todo,taskId,iscompleted)=>{
         </div>
   // {this.state.tasks.map((tasks,i) => <p key ={"task" + i}> {tasks.todo} </p>)}
       );
+
+    }else{
+      return(
+        <div>
+          <Login updateUserID={this.updateUserID}/>
+        </div>
+
+      )
+     
+    }
+    
 
     }
     
