@@ -5,6 +5,7 @@ import Adder from './Adder.js'
 import Navbar from './Navbar.js'
 import TaskList from './TaskList';
 import Login from './Login.js';
+import {CONNECTION} from "./constants.js"
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class App extends Component {
 
   }
   addTask=(taskToAdd)=>{
-    URL = "http://localhost:8085/api/v1/todos"
+    URL = `http://${CONNECTION}:8085/api/v1/todos`
     let request2 = new XMLHttpRequest();
     request2.open('POST', URL);
     request2.responseType = 'json';
@@ -43,7 +44,7 @@ class App extends Component {
     if (completed!=null){
       this.state.completed=completed;
     }
-    let URL = "http://localhost:8085/api/v1/todos/"+this.state.userId +'/'+this.state.completed;
+    let URL = `http://${CONNECTION}:8085/api/v1/todos/`+this.state.userId +'/'+this.state.completed;
     let request = new XMLHttpRequest();
     request.open("GET", URL);
     request.responseType = "json";
@@ -56,7 +57,7 @@ class App extends Component {
     request.send();
   }
   deleteTasks=(id)=> {
-    let requestURL =("http://localhost:8085/api/v1/todos/"+ id);
+    let requestURL =(`http://${CONNECTION}:8085/api/v1/todos/`+ id);
     let request = new XMLHttpRequest();
     request.open('DELETE', requestURL);
     request.responseType = 'json'
@@ -69,7 +70,7 @@ class App extends Component {
       request.send();
 }
 updateTask=(todo,taskId,iscompleted)=>{
-  let URL = "http://localhost:8085/api/v1/todos///"+ taskId
+  let URL = `http://${CONNECTION}:8085/api/v1/todos///`+ taskId
   let request = new XMLHttpRequest();
   request.open("PUT", URL);
   request.setRequestHeader("Content-Type","application/json")
