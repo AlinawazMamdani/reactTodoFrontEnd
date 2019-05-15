@@ -11,7 +11,7 @@ export default class Login extends Component {
 }
 
     getUsers = (username,password,reg) => {
-        let URL = `http://${CONNECTION}:8085/api/v1/users///`+this.state.username;
+        let URL = `${CONNECTION}/api/v1/users///`+this.state.username;
         let request = new XMLHttpRequest();
         request.open("GET", URL);
         request.responseType = "json";
@@ -30,7 +30,7 @@ export default class Login extends Component {
         request.send();
       }
       register=()=>{
-        let URL=`http://${CONNECTION}:8085/api/v1/users/`;
+        let URL=`${CONNECTION}api/v1/users/`;
         let request2 = new XMLHttpRequest();
         request2.open('POST', URL);
         request2.responseType = 'json';
@@ -44,7 +44,7 @@ export default class Login extends Component {
         }
       
       loginAttempt = (username,password) => {
-        let URL = `http://${CONNECTION}:8085/api/v1/users///`+username+"/"+password ;
+        let URL = `${CONNECTION}/api/v1/users///`+username+"/"+password ;
         let request = new XMLHttpRequest();
         request.open("GET", URL);
         request.responseType = "json";

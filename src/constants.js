@@ -1,3 +1,4 @@
 
-export const CONNECTION="35.197.244.61"
-//export const CONNECTION= "localhost"
+//export const CONNECTION="http://35.197.244.61:8085"
+export const CONNECTION=""
+//export const CONNECTION= "http://localhost:8085"
