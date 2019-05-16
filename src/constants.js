@@ -1,4 +1,5 @@
 
-//export const CONNECTION="35.197.244.61
+//export const CONNECTION="http://35.197.244.61:8085/api
 export const CONNECTION ="/api/"
-//export const CONNECTION= "localhost"
+//export const CONNECTION= "http://localhost/api"
+//http://${CONNECTION}:8085/api
